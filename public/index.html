@@ -7,51 +7,48 @@
   <script src="javascripts/lib/dark.js"></script>
   <script src="javascripts/lib/echarts.js"></script>
   <script src="javascripts/lib/jquery-3.3.1.slim.js"></script>
+  <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak-->
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=v5SH1lNanLGLeG1eu0eF7e4b1B58Mktz"></script>
+  <!-- 引入百度地图扩展 -->
+  <script src="javascripts/lib/extension/bmap.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="container">
 <div class="row" >
-  <div class="col-md-3 col-lg-3">
+  <div class="col-md-2 col-lg-2">
     <div id="corr" class="container" style="width: 400px;height:400px;">
-      container1
     </div>
     <div id="adjust" class="container"style="width: 400px;height:200px;">
-      container1-1
     </div>
   </div>
   <div class="col-md-6 col-lg-6">
-    <div id="location" class="container"  style="width: 800px;height:400px;">
-      container2
+    <div id="location" class="container"  style="width: 800px;height:600px;">
     </div>
   </div>
-  <div class="col-md-3 col-lg-3">
-    <div id="date" class="container"  style="width: 400px;height:200px;">
+  <div class="col-md-4 col-lg-4">
+    <div id="date" class="container"  style="width: 600px;height:260px;">
       container3
     </div>
-    <div id="week" class="container"  style="width: 400px;height:200px;">
+    <div id="week" class="container"  style="width: 600px;height:400px;">
       container3-2
     </div>
   </div>
 </div>
 <div class="row">
-  <div id="course_GPA" class="col-md-3 col-lg-3" style="width: 800px;height:300px;"></div>
-  <div id="region1" class="col-md-3 col-lg-3"  style="width: 800px;height:300px;"></div>
-  <div id="region2" class="col-md-3 col-lg-3" style="width: 800px;height:300px;">.col-md-3</div>
-  <div id="statics" class="col-md-3 col-lg-3"  style="width: 800px;height:300px;"></div>
-</div>
-</div>
+  <div id="course_GPA" class="col-md-4 col-lg-4" style="width: 800px;height:300px;"></div>
+  <div id="region1" class="col-md-4 col-lg-4"  style="width: 800px;height:300px;"></div>
+  <div id="statics" class="col-md-4 col-lg-4"  style="width: 800px;height:300px;"></div>
 </div>
 
+</div>
+<script src="javascripts/location.js"></script>
 <script src="javascripts/corr.js"></script>
 <script src="javascripts/adjust.js"></script>
 <script src="javascripts/course_GPA.js"></script>
 <script src="javascripts/date.js"></script>
-<script src="javascripts/location.js"></script>
 <script src="javascripts/region1.js"></script>
-<script src="javascripts/region2.js"></script>
 <script src="javascripts/week.js"></script>
 <script src="javascripts/statics.js"></script>
 

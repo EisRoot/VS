@@ -1,8 +1,8 @@
 var static_Chart = echarts.init(document.getElementById('statics'))
 static_option = {
-    title: {
-        text: 'statics',
-    },
+    // title: {
+    //     text: 'statics',
+    // },
     tooltip: {
         trigger: 'axis',
         axisPointer: {
