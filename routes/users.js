@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.sendFile("C:\\Users\\lab\\WebstormProjects\\VS\\public\\test.html");
 });
 
 module.exports = router;

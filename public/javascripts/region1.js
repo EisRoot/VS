@@ -1,10 +1,10 @@
 var region1_Chart = echarts.init(document.getElementById('region1'))
 region1_option = {
-    // title : {
-    //     text: '南丁格尔玫瑰图',
-    //     subtext: '纯属虚构',
-    //     x:'center'
-    // },
+    title : {
+        text: '南丁格尔玫瑰图',
+        subtext: '纯属虚构',
+        x:'center'
+    },
     tooltip : {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -34,7 +34,6 @@ region1_option = {
             type:'pie',
             radius : [20, 110],
             center : ['25%', '50%'],
-            roseType : 'radius',
             label: {
                 normal: {
                     show: false
@@ -60,14 +59,20 @@ region1_option = {
                 {value:35, name:'rose6'},
                 {value:30, name:'rose7'},
                 {value:40, name:'rose8'}
-            ]
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
         },
         {
             name:'面积模式',
             type:'pie',
             radius : [30, 110],
             center : ['75%', '50%'],
-            roseType : 'area',
             data:[
                 {value:10, name:'rose1'},
                 {value:5, name:'rose2'},
@@ -82,3 +87,26 @@ region1_option = {
     ]
 };
 region1_Chart.setOption(region1_option);
+var currentIndex = -1;
+window.setInterval(function () {
+    var dataLen = region1_option.series[0].data.length;
+    // 取消之前高亮的图形
+    region1_Chart.dispatchAction({
+        type: 'downplay',
+        seriesIndex: 0,
+       dataIndex: currentIndex
+    });
+    currentIndex = (currentIndex + 1) % dataLen;
+    // 高亮当前图形
+    region1_Chart.dispatchAction({
+        type: 'highlight',
+        seriesIndex: 0,
+      dataIndex: currentIndex
+    });
+    // 显示 tooltip
+    region1_Chart.dispatchAction({
+        type: 'showTip',
+        seriesIndex: 0,
+      dataIndex: currentIndex
+    });
+}, 1000);
