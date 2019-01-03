@@ -1,8 +1,7 @@
 var static_Chart = echarts.init(document.getElementById('statics'))
 static_option = {
-    // title: {
-    //     text: 'statics',
-    // },
+
+
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -12,8 +11,7 @@ static_option = {
     toolbox: {},
     xAxis:  {
         type: 'category',
-        boundaryGap: false,
-        data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+        data:[]
     },
     yAxis: {
         type: 'value',
@@ -52,7 +50,8 @@ static_option = {
             name:'用电量',
             type:'line',
             smooth: true,
-            data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
+            encoide:{x: 1, y: 0},
+            data:[],
             markArea: {
                 data: [ [{
                     name: '早高峰',
@@ -69,4 +68,10 @@ static_option = {
         }
     ]
 };
-static_Chart.setOption(static_option);
+$.get("http://127.0.0.1:3000/plot4",function (data) {
+    echarts.util.each(data, function (dataItem) {
+        static_option.xAxis.data.push(dataItem[0]);
+        static_option.series[0].data.push(dataItem[1]);
+    });
+    static_Chart.setOption(static_option);
+})
