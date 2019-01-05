@@ -1,4 +1,5 @@
-var static_Chart = echarts.init(document.getElementById('statics'))
+var static_Chart = echarts.init(document.getElementById('statics'));
+var arr6 = Array.from({length:100}, (v,k) => k);
 static_option = {
 
 
@@ -11,7 +12,10 @@ static_option = {
     toolbox: {},
     xAxis:  {
         type: 'category',
-        data:[]
+        data:arr6,
+        axisLabel: {
+            show:false
+        },
     },
     yAxis: {
         type: 'value',
@@ -22,29 +26,29 @@ static_option = {
             snap: true
         }
     },
-    visualMap: {
-        show: false,
-        dimension: 0,
-        pieces: [{
-            lte: 6,
-            color: 'green'
-        }, {
-            gt: 6,
-            lte: 8,
-            color: 'red'
-        }, {
-            gt: 8,
-            lte: 14,
-            color: 'green'
-        }, {
-            gt: 14,
-            lte: 17,
-            color: 'red'
-        }, {
-            gt: 17,
-            color: 'green'
-        }]
-    },
+    // visualMap: {
+    //     show: false,
+    //     dimension: 0,
+    //     pieces: [{
+    //         lte: 6,
+    //         color: 'green'
+    //     }, {
+    //         gt: 6,
+    //         lte: 8,
+    //         color: 'red'
+    //     }, {
+    //         gt: 8,
+    //         lte: 14,
+    //         color: 'green'
+    //     }, {
+    //         gt: 14,
+    //         lte: 17,
+    //         color: 'red'
+    //     }, {
+    //         gt: 17,
+    //         color: 'green'
+    //     }]
+    // },
     series: [
         {
             name:'用电量',
@@ -68,10 +72,8 @@ static_option = {
         }
     ]
 };
-$.get("http://127.0.0.1:3000/plot4",function (data) {
-    echarts.util.each(data, function (dataItem) {
-        static_option.xAxis.data.push(dataItem[0]);
-        static_option.series[0].data.push(dataItem[1]);
-    });
-    static_Chart.setOption(static_option);
-})
+
+// var aa={'attr_id':'asdsa'};
+// $.post("http://127.0.0.1:3000/plot4/x",aa,function (data) {
+//
+// })

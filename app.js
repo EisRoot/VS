@@ -5,7 +5,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var plot3Router = require('./routes/plot3');
+var plot3Router =require('./routes/plot3');
 var plot4Router = require('./routes/plot4_deadline');
 var locationRouter = require('./routes/gps');
 

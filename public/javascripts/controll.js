@@ -4,7 +4,6 @@ var check_box_id=['stu_total_sleep','stu_total_conversation','check_3','check_4'
 var check_handler=function () {
     var json;
     static_option.series=[];
-    static_option.xAxis.data=[];
     static_Chart.clear();
 
     checkMap.forEach(function (item, key) {
@@ -18,11 +17,14 @@ var check_handler=function () {
                 data:[],
             };
             $.get('http://127.0.0.1:3000/json/'+key+'.json',function (data) {
-               
+
                 echarts.util.each(data, function (dataItem) {
-                    static_option.xAxis.data.push(dataItem[0]);
-                    newseries.data.push(dataItem[1]);
+
+                    newseries.data.push([dataItem[0],dataItem[1]]);
                 });
+                // newseries.data.sort(function (a, b) {
+                //     return a[1]<b[1]
+                // })
                 static_option.series.push(newseries);
                 static_Chart.setOption(static_option);
 
