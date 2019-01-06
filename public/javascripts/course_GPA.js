@@ -1,4 +1,6 @@
 var GPA_Chart = echarts.init(document.getElementById('course_GPA'));
+var singleId;
+var selectedIds = [];
 GPA_option = {
     brush: {
         xAxisIndex: 0,
@@ -31,21 +33,54 @@ GPA_option = {
             [10, 4.82],
             [13, 5.68]
         ],
-
-        selectedData: [],
         type: 'scatter',
+    },
+    itemStyle: {
+        normal:{
+            //当前选中的柱子使用亮色，其余的使用基本颜色
+            color: function (param){
+                return (params.dataIndex==GPA_option.series.data[0])?
+                    'rgb(204,0,51)':
+                    'rgb(42,170,227)';
+            }
+        },
+        emphasis: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
     }
 };
+
 GPA_Chart.setOption(GPA_option);
 // 点击散点触发热力图更新
 GPA_Chart.on('click', function (params) {
-    var singleId = params.data[0];
+    singleId = params.data[0].toString();
     var points = [];
-    points = points.concat(stu_gps_data[singleId.toString()].map(function (track) {
+    console.log(singleId);
+    points = points.concat(stu_gps_data[singleId].map(function (track) {
         return track.coord.concat([1]);
     }));
     location_option.series[1].data = points;
     location_Chart.setOption(location_option);
+    //取消高亮其他点
+    GPA_Chart.dispatchAction({
+        type: 'downplay',
+        seriesIndex : 0
+    });
+    //高亮显示点击点
+    GPA_Chart.dispatchAction({
+        type: 'highlight',
+        dataIndex : params.dataIndex
+    });
+    static2_Chart.dispatchAction({
+        type: 'downplay',
+        seriesIndex : 0
+    });
+    static2_Chart.dispatchAction({
+        type: 'highlight',
+        dataIndex : params.dataIndex
+    });
 });
 // 刷选散点，更新热力图
 GPA_Chart.on('brushSelected', function (params) {
@@ -65,7 +100,7 @@ GPA_Chart.on('brushSelected', function (params) {
             selectedItems.push(data[i][0]);
         }
     }
-    GPA_option.series.selectedData = selectedItems;
+    selectedIds = selectedItems;
     //location的更新逻辑
     var points = [];
     for (var i = 0; i < selectedItems.length; i++) {

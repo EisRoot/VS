@@ -113,4 +113,4 @@ $.get('http://127.0.0.1:3000/gps/map',function (mapjson) {
         // bmap.addControl(new BMap.MapTypeControl());
     });
 
-})
+});
