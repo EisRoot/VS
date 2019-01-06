@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 var plot3Router =require('./routes/plot3');
 var plot4Router = require('./routes/plot4_deadline');
 var locationRouter = require('./routes/gps');
+var piazzaRouter = require('./routes/piazza');
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use('/users', usersRouter);
 app.use('/plot', plot3Router);
 app.use('/plot4', plot4Router);
 app.use('/gps',locationRouter);
+app.use('/piazza',piazzaRouter);
 
 
 module.exports = app;
