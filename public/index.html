@@ -4,9 +4,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
   <title>Express</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
   <script src="javascripts/lib/dark.js"></script>
   <script src="javascripts/lib/echarts.js"></script>
-    <script src="javascripts/lib/jquery-3.3.1.js"></script>
+  <script src="javascripts/lib/jquery-3.3.1.js"></script>
+  <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+
   <!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak-->
   <script src="http://api.map.baidu.com/api?v=2.0&ak=v5SH1lNanLGLeG1eu0eF7e4b1B58Mktz"></script>
   <!-- 引入百度地图扩展 -->
@@ -14,38 +17,75 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.5.0/css/bootstrap-slider.css"/>
+
 </head>
 
 <body>
 <div class="row" >
   <div >
-    <div id="corr" class="container" style="width: 150px;height:300px;background-color: whitesmoke;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
-      <div class="pretty p-default p-round p-smooth p-plain" onclick="checkclick('睡眠时间')" style="margin-top: 10px">
-      <input type="checkbox" id="stu_total_sleep"/>
+    <div id="corr" class="container" style="width: 300px;height:500px;background-color: whitesmoke;margin-left:100px;margin-right:10px;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+      <div class="pretty p-default p-round p-smooth p-plain" onclick="checkclick('睡眠时间')" style="margin-top: 50px;margin-left: 20px">
+      <input type="checkbox" id="check_1"/>
         <div class="state p-success-o">
-          <label> 睡眠时间</label>
+          <label> 出勤率    </label>
         </div>
     </div>
-      <div class="pretty p-default p-round p-smooth p-plain" style="margin-top: 10px" onclick="checkclick('学习时间')">
-        <input type="checkbox"  id="stu_total_conversation" />
+      <button class="button primary outline" onclick="showclick('check_1')">显示</button>
+      <div class="pretty p-default p-round p-smooth p-plain"  style="margin-top: 20px;margin-left: 20px" onclick="checkclick('学习时间')">
+        <input type="checkbox"  id="check_2" />
         <div class="state p-success-o">
-          <label> 交流时间</label>
+          <label> 评论数    </label>
         </div>
       </div>
-      <div class="pretty p-default p-round p-smooth p-plain" style="margin-top: 10px" onclick="checkclick('回答数量')">
+      <button class="button primary outline"  onclick="showclick('check_2')">显示</button>
+
+      <div class="pretty p-default p-round p-smooth p-plain" style="margin-top: 20px;margin-left: 20px" onclick="checkclick('回答数量')">
         <input type="checkbox"  id="check_3"/>
         <div class="state p-success-o">
-          <label> 回答数量</label>
+          <label> 提问数      </label>
         </div>
       </div>
-      <div class="pretty p-default p-round p-smooth p-plain" style="margin-top: 10px" onclick="checkclick('心情状态')">
+      <button class="button primary outline"  onclick="showclick('check_3')">显示</button>
+      <div class="pretty p-default p-round p-smooth p-plain" style="margin-top: 20px;margin-left: 20px" onclick="checkclick('心情状态')">
         <input type="checkbox"  id="check_4"/>
         <div class="state p-success-o">
-          <label> 心情状态</label>
+          <label> 笔记数    </label>
         </div>
       </div>
+      <button class="button primary outline"  onclick="showclick('check_4')">显示</button>
+      <div class="pretty p-default p-round p-smooth p-plain"  style="margin-top: 20px;margin-left: 20px" onclick="checkclick('学习时间')">
+        <input type="checkbox"  id="check_5" />
+        <div class="state p-success-o">
+          <label> 回答数    </label>
+        </div>
+      </div>
+      <button class="button primary outline"  onclick="showclick('check_5')">显示</button>
+      <div class="pretty p-default p-round p-smooth p-plain"  style="margin-top: 20px;margin-left: 20px" onclick="checkclick('学习时间')">
+        <input type="checkbox"  id="check_6" />
+        <div class="state p-success-o">
+          <label> 睡眠时长</label>
+        </div>
+      </div>
+      <button class="button primary outline"  onclick="showclick('check_6')">显示</button>
+      <div class="pretty p-default p-round p-smooth p-plain"  style="margin-top: 20px;margin-left: 20px" onclick="checkclick('学习时间')">
+        <input type="checkbox"  id="check_7" />
+        <div class="state p-success-o">
+          <label> 交流时长</label>
+        </div>
+      </div>
+      <button class="button primary outline"  onclick="showclick('stu_total_sleep')">显示</button>
     </div>
-    <div id="adjust" class="container"style="width: 400px;height:200px;">
+    <div id="adjust" class="container"style="width: 300px;height:auto;background-color: whitesmoke;margin-left:100px;margin-top:10px;margin-right:10px;box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+
+      <div style="height: 15px;width: 300px"></div>
+      <div id="sliderBox" class="container"style="width: auto;height:auto;"></div>
+      <!--<input data-role="slider" id="slider4" class="visible" data-hint-position="left"   data-hint-always="true"  	 data-min="0" data-max="200" style="display: none;width: 200px;height: 50px" />-->
+      <!--<input data-role="slider" id="slider5" class="no-visible"data-hint-position="left"   data-hint-always="true"   data-min="0" data-max="200" style="display: none;width: 200px;height: 50px" />-->
+      <!--<input data-role="slider" id="slider6" class="no-visible" data-hint-position="left"   data-hint-always="true"  data-min="0" data-max="200" style="display: none;width: 200px;height: 50px" />-->
+
+      <button class="button primary" id="sliderButton" style="margin-top: 20px;margin-left: 100px;margin-bottom: 20px">训练</button>
+
     </div>
   </div>
   <div >

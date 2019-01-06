@@ -1,23 +1,19 @@
 var GPA_Chart = echarts.init(document.getElementById('course_GPA'))
 GPA_option = {
     xAxis: {},
-    yAxis: {},
+    yAxis: {
+    },
     series: [{
-        symbolSize: 20,
+        name:'GPA实际值',
+        symbolSize: 10,
         data: [
-            [10.0, 8.04],
-            [8.0, 6.95],
-            [13.0, 7.58],
-            [9.0, 8.81],
-            [11.0, 8.33],
-            [14.0, 9.96],
-            [6.0, 7.24],
-            [4.0, 4.26],
-            [12.0, 10.84],
-            [7.0, 4.82],
-            [5.0, 5.68]
         ],
         type: 'scatter'
     }]
 };
-GPA_Chart.setOption(GPA_option)
+$.get("http://127.0.0.1:3000/json/stu_grades.json",function (data) {
+
+
+    GPA_option.series[0].data=data;
+    GPA_Chart.setOption(GPA_option);
+})
