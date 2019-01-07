@@ -6,6 +6,7 @@ GPA_option = {
         data: ['GPA实际值',  'GPA预测值']
     },
     brush: {
+        seriesId:0,
         xAxisIndex: 0,
         brushLink: 0,
         outOfBrush: {
@@ -74,7 +75,7 @@ GPA_Chart.on('brushSelected', function (params) {
             }
         }
     }
-    var data = GPA_option.series[1].data;
+    var data = GPA_option.series[0].data;
     var selectedItems = []; // 选中的项目
     for (var i = 0; i < data.length; i++) {
         if (data[i][1] > selectedCoord[0] && data[i][1] < selectedCoord[1]) {
