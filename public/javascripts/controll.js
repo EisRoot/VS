@@ -86,9 +86,9 @@ function getShowData1(path) {
             markArea : {
                 data:  [{
                     name: 'midterm',
-                    xAxis: '21'
+                    xAxis: 21
                 }, {
-                    xAxis: '35'
+                    xAxis: 35
                 }]
             },
             encoide: {x: 1, y: 0},
