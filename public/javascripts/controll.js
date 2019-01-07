@@ -83,14 +83,6 @@ function getShowData1(path) {
             name: path,
             type: 'line',
             smooth: true,
-            markArea : {
-                data:  [{
-                    name: 'midterm',
-                    xAxis: 21
-                }, {
-                    xAxis: 35
-                }]
-            },
             encoide: {x: 1, y: 0},
             data: [],
         }
