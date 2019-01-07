@@ -65,7 +65,7 @@ def filter(df_train,name):
     return df
 
 def test():
-    df_train = pd.read_csv("C:\\Users\\lab\\WebstormProjects\\VS\\public\\Python\\train.csv", encoding="utf-8")
+    df_train = pd.read_csv(pro_path+"VS\\public\\Python\\train.csv", encoding="utf-8")
     #带参数启动python
     ##  1 得到前端传来的特征表示字符串
     feature_name = sys.argv[1] #需要动态改

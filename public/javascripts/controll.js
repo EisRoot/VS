@@ -22,20 +22,23 @@ var check_handler=function () {
             slider_value.push($('#'+slider_id[j]).val());
             j++;
         }
-        $.post("http://127.0.0.1:3000/plot/adjust",{attrList:str,values:slider_value.toString(),id:'12'},function (data) {
-            alert(data);
+        $.post(s_path+"/plot/adjust",{attrList:str,values:slider_value.toString(),id:singleId},function (data) {
+            
             // var new_series={
             //     name:'GPA预测值',
             //     symbolSize: 10,
             //     data: data,
             //     type: 'scatter'
             // };
-            // GPA_option.series[1]=new_series;
-            // GPA_Chart.setOption(GPA_option);
+            GPA_option.series[1].data.forEach(function (dataItem) {
+                if (dataItem[0]==singleId){
+                    dataItem[1]=data;
+                }
+            });
+            GPA_Chart.setOption(GPA_option);
         })
     });
 
-    static_Chart.clear();
     var str='';
     //statics
     checkMap.forEach(function (item, key) {
@@ -44,39 +47,18 @@ var check_handler=function () {
         } else {
             str=str+"0";
         }
-        if (item){
-            //statics 试图的变化逻辑
-            var newseries={
-                name:key,
-                type:'line',
-                smooth: true,
-                encoide:{x: 1, y: 0},
-                data:[],
-            }
-            $.get('http://127.0.0.1:3000/json/'+key+'.json',function (data) {
 
-                echarts.util.each(data, function (dataItem) {
 
-                    newseries.data.push([dataItem[0],dataItem[1]]);
-                });
-                // newseries.data.sort(function (a, b) {
-                //     return a[1]<b[1]
-                // })
-                static_option.series.push(newseries);
-                static_Chart.setOption(static_option);
 
-            });
-
-        }
     })
 
     //GPA特征训练post请求
 
-    $.post("http://127.0.0.1:3000/plot/gpa",{attrList:str},function (data) {
+    $.post(s_path+"/plot/gpa",{attrList:str},function (data) {
 
        var new_series={
             name:'GPA预测值',
-            symbolSize: 10,
+            symbolSize: 15,
             data: data,
             type: 'scatter'
         };
@@ -93,8 +75,66 @@ function checkclick(names) {
     clearTimeout(check_time_set);
     check_time_set=setTimeout(check_handler,1000);
 }
+function getShowData1(path) {
 
+    $.get(s_path + "/json/" + path, function (data) {
+        //statics 试图的变化逻辑
+        var newseries = {
+            name: path,
+            type: 'line',
+            smooth: true,
+            encoide: {x: 1, y: 0},
+            data: [],
+        }
+
+        var total=0.0;
+        var day=0;
+        echarts.util.each(data, function (dataItem) {
+            if (dataItem[1]>day){
+                newseries.data.push([day, total]);
+                day=dataItem[1];
+                total=0.0;
+            }
+            total=total+dataItem[2];
+        });
+        // newseries.data.sort(function (a, b) {
+        //     return a[1]<b[1]
+        // })
+        static_option.series[0] = newseries;
+        static_Chart.setOption(static_option);
+
+    });
+}
+function getShowData2(path) {
+    $.get(s_path+'/piazza', function (piazza) {
+        statics2_option.series[0].data = piazza[path];
+        static2_Chart.setOption(statics2_option);
+    });
+}
+//显示按钮click
 function showclick(type) {
-    alert(type);
+    switch (type) {
+        case 'check_1':
+            getShowData2('days online');
+            break;
+        case 'check_2':
+            getShowData2('views');
+            break;
+        case 'check_3':
+            getShowData2('questions');
+             break;
+        case 'check_4':
+            getShowData2('notes');
+            break;
+        case 'check_5':
+            getShowData2('answers');
+            break;
+        case 'check_6':
+            getShowData1('stu_day_sleep.json');
+        break;
+        case 'check_7':
+            getShowData1('stu_day_conversation.json');
+        break;
+    }
 
 }

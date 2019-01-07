@@ -2,6 +2,9 @@ var GPA_Chart = echarts.init(document.getElementById('course_GPA'));
 var singleId;
 var selectedIds = [];
 GPA_option = {
+    legend: {
+        data: ['GPA实际值',  'GPA预测值']
+    },
     brush: {
         xAxisIndex: 0,
         brushLink: 0,
@@ -18,10 +21,11 @@ GPA_option = {
     },
     xAxis: {},
     yAxis: {
+        min : 'dataMin'
     },
     series: [{
         name:'GPA实际值',
-        symbolSize: 10,
+        symbolSize: 15,
         data: [
         ],
         type: 'scatter'
@@ -32,6 +36,7 @@ GPA_Chart.setOption(GPA_option);
 // 点击散点触发热力图更新
 GPA_Chart.on('click', function (params) {
     singleId = params.data[0].toString();
+    $('#stu_id').html('学生：'+singleId);
     var points = [];
     console.log(singleId);
     points = points.concat(stu_gps_data[singleId].map(function (track) {
@@ -42,7 +47,7 @@ GPA_Chart.on('click', function (params) {
     //取消高亮其他点
     GPA_Chart.dispatchAction({
         type: 'downplay',
-        seriesIndex : 0
+        seriesIndex : [0,1]
     });
     //高亮显示点击点
     GPA_Chart.dispatchAction({
@@ -51,7 +56,7 @@ GPA_Chart.on('click', function (params) {
     });
     static2_Chart.dispatchAction({
         type: 'downplay',
-        seriesIndex : 0
+        seriesIndex : [0,1]
     });
     static2_Chart.dispatchAction({
         type: 'highlight',
@@ -69,7 +74,7 @@ GPA_Chart.on('brushSelected', function (params) {
             }
         }
     }
-    var data = GPA_option.series.data;
+    var data = GPA_option.series[1].data;
     var selectedItems = []; // 选中的项目
     for (var i = 0; i < data.length; i++) {
         if (data[i][1] > selectedCoord[0] && data[i][1] < selectedCoord[1]) {
@@ -90,7 +95,7 @@ GPA_Chart.on('brushSelected', function (params) {
     location_option.series[1].data = points;
     location_Chart.setOption(location_option);
 });
-$.get("http://127.0.0.1:3000/json/stu_grades.json",function (data) {
+$.get(s_path+"/json/stu_grades.json",function (data) {
 
 
     GPA_option.series[0].data=data;

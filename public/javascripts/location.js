@@ -96,9 +96,9 @@ var location_option = {
     }
     ]
 };
-$.get('http://127.0.0.1:3000/gps/map',function (mapjson) {
+$.get(s_path+'/gps/map',function (mapjson) {
     echarts.registerMap('dmap', mapjson);
-    $.get('http://127.0.0.1:3000/gps', function (date) {
+    $.get(s_path+'/gps', function (date) {
         stu_gps_data=date;
         var points = [];
         for(var i in stu_gps_data){

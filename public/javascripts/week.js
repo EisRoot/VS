@@ -54,7 +54,7 @@ echarts.util.each(data, function (dataItem) {
 
 week_Chart.setOption(week_option,notMerge=true);
 window.setInterval(function () {
-    $.get("http://127.0.0.1:3000/plot",function (data1) {
+    $.get(s_path+"/plot",function (data1) {
 
         echarts.util.each(data1, function (dataItem) {
             //console.log(week_option.series[dataItem[0]].data);

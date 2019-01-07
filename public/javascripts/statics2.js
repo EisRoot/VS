@@ -12,7 +12,4 @@ statics2_option = {
         type: 'bar'
     }]
 };
-$.get('http://127.0.0.1:3000/piazza', function (piazza) {
-    statics2_option.series[0].data = piazza['views'];
-    static2_Chart.setOption(statics2_option);
-});
+

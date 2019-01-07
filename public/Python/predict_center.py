@@ -17,10 +17,7 @@ def trainAndPredict(df_train,name):
     df_X = df_train.drop('grades',axis=1)
     df_X = StandardScaler().fit_transform(df_X)
     df_y = df_train['grades']
-
-    # Lasso线性回归预测
-    # x_train, x_test, y_train, y_test = train_test_split(df_X, df_y, random_state=1) #划分训练集和测试集
-    
+ 
     model = Ridge() #lamba1正则
     alpha_can = np.logspace(-3, 2, 5)
     ridge_model = GridSearchCV(model, param_grid={'alpha': alpha_can}, cv=5)
@@ -55,14 +52,7 @@ def useModel(df_train,name):
 
 def filter(df_train,name):
     df = df_train
-    feature = int(name,2)
-    # print(feature)
-    # print(feature&32)
-    # print(feature&16)
-    # print(feature&8)
-    # print(feature&4)
-    # print(feature&2)
-    # print(feature&1)        
+    feature = int(name,2)     
     if feature&64 == 0 :
         df = df.drop('attendance_rate',axis=1)
     if feature&32 == 0 :
@@ -77,8 +67,6 @@ def filter(df_train,name):
         df = df.drop('sleep',axis=1)
     if feature&1 == 0 :
         df = df.drop('conv', axis=1)
-    # print("过滤掉的维度:",df.shape)
-    # print(df)
     return df
 
 #根据特征进行训练
@@ -112,94 +100,74 @@ def modify(feature_name,feature_array,modify_id):
     adjustId = adjustid(modify_id)
     # df_train.loc[df_train['uid'] == adjustId, 'sleep'] *= 0.5
     # print(df_train.loc[df_train['uid'] == adjustId, 'sleep'])
-    # print("修改前:")
-    # print(df_train.loc[df_train['uid'] == adjustId])
     #根据特征修改信息
     sum = 0
     feature = int(feature_name,2)
     #取feature_array第几个数作为修改倍数
-    test_stu = df_train[df_train['uid'] == adjustId]
+    # test_stu = df_train[df_train['uid'] == adjustId]
     if feature&64 == 64 :
-        test_stu['attendance_rate'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'attendance_rate'] *= feature_array[sum]
         #得到要修改学生的id和要改的属性，以及要改的值，执行修改操作
         sum += 1
     else :
-        test_stu = test_stu.drop('attendance_rate',axis = 1)
+        df_train = df_train.drop('attendance_rate',axis = 1)
     if feature&32 == 32 :
-        test_stu['views'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'views'] *= feature_array[sum]
         sum += 1
     else:
-        test_stu = test_stu.drop('views',axis = 1)
+        df_train = df_train.drop('views',axis = 1)
     if feature&16 == 16 :
-        test_stu['questions'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'questions'] *= feature_array[sum]
         sum += 1
     else:
-        test_stu = test_stu.drop('questions',axis = 1)
+        df_train = df_train.drop('questions',axis = 1)
     if feature&8 == 8 :
-        test_stu['notes'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'notes'] *= feature_array[sum]
         sum += 1
     else:
-        test_stu = test_stu.drop('notes',axis = 1)
+        df_train = df_train.drop('notes',axis = 1)
     if feature&4 == 4 :
-        test_stu['answers'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'answers'] *= feature_array[sum]
         sum += 1
     else:
-        test_stu = test_stu.drop('answers',axis = 1)
+        df_train = df_train.drop('answers',axis = 1)
     if feature&2 == 2 :
-        test_stu['sleep'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'sleep'] *= feature_array[sum]
     else:
-        test_stu = test_stu.drop('sleep',axis = 1)
+        df_train = df_train.drop('sleep',axis = 1)
     if feature&1 == 1 :
-        test_stu['conv'] *= feature_array[sum]
+        df_train.loc[df_train['uid'] == adjustId, 'conv'] *= feature_array[sum]
     else:
-        test_stu = test_stu.drop('conv',axis = 1)
+        df_train = df_train.drop('conv',axis = 1)
+    
+    # test_stu = df_train[df_train['uid'] == adjustId]
+    # print(df_train)
+    idIndex = df_train[df_train['uid'] == adjustId].index
     #修改好的值
-    # print("修改后:")
-    # print(test_stu)
-    test_stu = test_stu.drop('uid',axis = 1).drop('grades',axis=1)
-    # print(test_stu.shape)
-    print(test_stu)
-    test_stu = StandardScaler().fit_transform(test_stu)
-    print(test_stu)
+    df_train = df_train.drop('uid',axis = 1).drop('grades',axis=1)
+    df_train = StandardScaler().fit_transform(df_train)
 
-    result2 = model.predict(np.array(test_stu))
+    test_stu = df_train[idIndex[0]]
+    result = model.predict(np.array([test_stu]))
 
     # #新的预测数据
-    print(result2)
+    print(result)
     # return result
 
 if __name__ == '__main__':
-    # feature_name = "1011001" #需要训练的特征
     feature_name = sys.argv[1]
-    if len(sys.argv) < 3 :
+    if len(sys.argv) < 3:
         train(feature_name)
     else:
-        feature_array = sys.argv[2] #得到修改的特征集
+        feature_array = sys.argv[2]  # 得到修改的特征集
         # print(feature_array)
-        feature_array=feature_array.split(',')
-        feature_array_f=[]
+        feature_array = feature_array.split(',')
+        feature_array_f = []
         for sttr in feature_array:
-            feature_array_f.append(float(sttr)/100)
+            feature_array_f.append(float(sttr) / 100)
 
-        modify_id = sys.argv[3] #需要修改的学生id
+        modify_id = sys.argv[3]  # 需要修改的学生id
         # print (feature_array_f)
         # print (modify_id)
 
-        modify(feature_name,feature_array_f,modify_id)
-
-
-
-    
-
-    # train(feature_name)
-
-    # feature_array = [0.7,1.2,0.8,1]
-    # modify_id = 8
-    # modify(feature_name,feature_array,modify_id)
-
-    # if len(sys.argv) < 2:
-    #     train() 
-    # else:
-    #     modify(feature_array,modify_id,feature_name)
-    #     print("预测数据")
-    
+        modify(feature_name, feature_array_f, modify_id)

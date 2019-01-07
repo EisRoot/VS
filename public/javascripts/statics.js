@@ -1,5 +1,5 @@
 var static_Chart = echarts.init(document.getElementById('statics'));
-var arr6 = Array.from({length:100}, (v,k) => k);
+var arr6 = Array.from({length:70}, (v,k) => k);
 static_option = {
 
 
@@ -50,30 +50,11 @@ static_option = {
     //     }]
     // },
     series: [
-        {
-            name:'用电量',
-            type:'line',
-            smooth: true,
-            encoide:{x: 1, y: 0},
-            data:[],
-            markArea: {
-                data: [ [{
-                    name: '早高峰',
-                    xAxis: '07:30'
-                }, {
-                    xAxis: '10:00'
-                }], [{
-                    name: '晚高峰',
-                    xAxis: '17:30'
-                }, {
-                    xAxis: '21:15'
-                }] ]
-            }
-        }
+
     ]
 };
 
 // var aa={'attr_id':'asdsa'};
-// $.post("http://127.0.0.1:3000/plot4/x",aa,function (data) {
+// $.post(s_path+'/plot4/x",aa,function (data) {
 //
 // })

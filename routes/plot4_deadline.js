@@ -1,12 +1,14 @@
 var express = require('express');
 var fs = require('fs');
+var pro_path='/usr/local/';
+
 
 
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    var date = fs.readFileSync('C:\\Users\\lab\\WebstormProjects\\VS\\public\\json\\plot4_deadline_day.json');
+    var date = fs.readFileSync(pro_path+'VS/public/json/plot4_deadline_day.json');
     var jsondata = JSON.stringify(date);
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(date);
