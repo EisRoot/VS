@@ -50,6 +50,22 @@ static_option = {
     //     }]
     // },
     series: [
+        {
+            name: '',
+            type: 'line',
+            smooth: true,
+            encoide: {x: 1, y: 0},
+            data: [],
+            markArea: {
+                data:  [[{
+                    name: 'midterm',
+                    xAxis: 21
+                }, {
+                    xAxis: 35
+                }]]
+            }
+
+        }
 
     ]
 };

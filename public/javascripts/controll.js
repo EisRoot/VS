@@ -79,19 +79,12 @@ function getShowData1(path) {
 
     $.get(s_path + "/json/" + path, function (data) {
         //statics 试图的变化逻辑
-        var newseries = {
-            name: path,
-            type: 'line',
-            smooth: true,
-            encoide: {x: 1, y: 0},
-            data: [],
-        }
-
         var total=0.0;
         var day=0;
+        var datas=[]
         echarts.util.each(data, function (dataItem) {
             if (dataItem[1]>day){
-                newseries.data.push([day, total]);
+                datas.push([day, total]);
                 day=dataItem[1];
                 total=0.0;
             }
@@ -100,7 +93,8 @@ function getShowData1(path) {
         // newseries.data.sort(function (a, b) {
         //     return a[1]<b[1]
         // })
-        static_option.series[0] = newseries;
+        static_option.series[0].name=path;
+        static_option.series[0].data=datas;
         static_Chart.setOption(static_option);
 
     });
