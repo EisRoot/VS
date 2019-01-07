@@ -42,11 +42,11 @@ def trainAndPredict(df_train,name):
 #保存机器学习模型
 def saveModel(model,name):
     #6个特征转2进制
-    joblib.dump(model, "C:\\Users\lab\WebstormProjects\VS\public\Python\\train_model"+ str(int(name,2)) + ".m")
+    joblib.dump(model, "/usr/local/VS/public/Python/train_model"+ str(int(name,2)) + ".m")
 
 #利用训练好模型进行预测
 def useModel(df_train,name):
-    ridge_model = joblib.load("C:\\Users\lab\WebstormProjects\VS\public\Python\\train_model" + str(int(name,2)) + ".m")
+    ridge_model = joblib.load("/usr/local/VS/public/Python/train_model" + str(int(name,2)) + ".m")
     return ridge_model
 
 
@@ -71,7 +71,7 @@ def filter(df_train,name):
 
 #根据特征进行训练
 def train(feature_name):
-    df_train = pd.read_csv("C:\\Users\lab\WebstormProjects\VS\public\Python\\train.csv", encoding="utf-8")
+    df_train = pd.read_csv("/usr/local/VS/public/Python/train.csv", encoding="utf-8")
     #带参数启动python
     ##  1 得到前端传来的特征表示字符串
     
@@ -95,7 +95,7 @@ def adjustid(id):
 
 #根据传来的id修改预测值
 def modify(feature_name,feature_array,modify_id):
-    df_train = pd.read_csv("C:\\Users\lab\WebstormProjects\VS\public\Python\\train.csv", encoding="utf-8")
+    df_train = pd.read_csv("/usr/local/VS/public/Python/train.csv", encoding="utf-8")
     model = useModel(df_train,feature_name)
     adjustId = adjustid(modify_id)
     # df_train.loc[df_train['uid'] == adjustId, 'sleep'] *= 0.5
