@@ -7,6 +7,13 @@ statics2_option = {
     yAxis: {
         type: 'value'
     },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        },
+        formatter: "{b},Value:{c}"
+    },
     series: [{
         data: [1,2,3,4,5,5],
         type: 'bar'
