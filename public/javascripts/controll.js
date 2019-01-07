@@ -5,7 +5,6 @@ var slider_attrname_map={'check_1':'出勤率','check_2':'评论数','check_3':'
 var slider_id=['slider1','slider2','slider3','slider4','slider5','slider6','slider7'];
 var check_handler=function () {
     var json;
-    static_option.series=[];
 
     //slider
     $('#sliderBox').empty(); //清空子标签
