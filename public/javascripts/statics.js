@@ -14,7 +14,7 @@ static_option = {
         type: 'category',
         data:arr6,
         axisLabel: {
-            show:false
+            show:true
         },
     },
     yAxis: {
@@ -58,7 +58,7 @@ static_option = {
             data: [],
             markArea: {
                 data:  [[{
-                    name: 'midterm',
+                    name: '期中',
                     xAxis: 21
                 }, {
                     xAxis: 35
