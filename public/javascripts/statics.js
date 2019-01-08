@@ -20,7 +20,7 @@ static_option = {
     yAxis: {
         type: 'value',
         axisLabel: {
-            show:false
+            show:true
         },
         axisPointer: {
             snap: true
