@@ -131,3 +131,5 @@ function showclick(type) {
     }
 
 }
+getShowData2('days online');
+getShowData1('stu_day_sleep.json');
